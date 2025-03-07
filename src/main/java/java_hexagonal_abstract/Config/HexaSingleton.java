@@ -1,28 +1,26 @@
 package java_hexagonal_abstract.Config;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
-
 public enum HexaSingleton {
     INSTANCIA;
-
     private final Properties propiedades = new Properties();
-
-    HexaSingleton(){
-        cargarConfiguraciones("config.prorties");
+    HexaSingleton() {
+        cargarConfiguraciones("config.properties");
     }
-
-    private void cargarConfiguraciones(String rutaArchivo){
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        try(FileInputStream archivo = new FileInputStream(classLoader.getResource(rutaArchivo).getFile())){
-            propiedades.load(archivo);
-        }catch(IOException e){
-            System.out.println("Error cargando configuracion: "+ e.getMessage());
+    private void cargarConfiguraciones(String rutaArchivo) {
+    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(rutaArchivo)) {
+        if (inputStream == null) {
+            throw new IOException("Archivo no encontrado: " + rutaArchivo);
         }
+        propiedades.load(inputStream);
+    } catch (IOException e) {
+        System.err.println("❌ Error cargando configuración: " + e.getMessage());
+        throw new RuntimeException("No se pudo cargar la configuración", e);
     }
-
-    public String get(String clave){
+}
+    public String get(String clave) {
         return propiedades.getProperty(clave, "No encontrado");
     }
 }

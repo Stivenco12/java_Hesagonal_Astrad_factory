@@ -37,14 +37,23 @@ public class ClientRepositoryImpl implements ClientRespository {
     public Client buscarPorId(int id) {
         String sql = "SELECT * FROM clientes WHERE id = ?";
         try (Connection conexion = connection.getConexion();
-             PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Client(rs.getInt("id"), rs.getString("name"), rs.getString("email"));
+                System.out.print("Id del cliente = ");
+                System.out.println(rs.getInt("id"));
+                System.out.print("Nombre del cliente = ");
+                System.out.println(rs.getString("nombre"));
+                System.out.print("Email del cliente = ");
+                System.out.println(rs.getString("email"));
+                
+            }else{
+                System.out.println("error ese id no existe");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("error");
         }
         return null;
     }
@@ -57,7 +66,13 @@ public class ClientRepositoryImpl implements ClientRespository {
              Statement stmt = conexion.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                clientes.add(new Client(rs.getInt("id"), rs.getString("nombre"), rs.getString("email")));
+                System.out.print("Id del cliente = ");
+                System.out.println(rs.getInt("id"));
+                System.out.print("Nombre del cliente = ");
+                System.out.println(rs.getString("nombre"));
+                System.out.print("Email del cliente = ");
+                System.out.println(rs.getString("email"));
+                System.out.println("");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,5 +105,6 @@ public class ClientRepositoryImpl implements ClientRespository {
             e.printStackTrace();
         }
     }
+
 
 }
