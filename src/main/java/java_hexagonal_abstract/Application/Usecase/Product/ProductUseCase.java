@@ -33,5 +33,5 @@ public class ProductUseCase {
 
     public void eliminarProducto(int id) {
         repository.eliminar(id);
-    }
+    } 
 }

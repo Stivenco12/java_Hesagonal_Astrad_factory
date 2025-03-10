@@ -14,6 +14,7 @@ public class ConnMySql implements ConnectionDb {
         String url = config.get("db.url");
         String usuario = config.get("db.user");
         String password = config.get("db.pasword");
+        
         return DriverManager.getConnection(url,usuario,password);
     }
 }

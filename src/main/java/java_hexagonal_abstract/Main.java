@@ -1,20 +1,29 @@
 package java_hexagonal_abstract;
 
+
 import java.util.Scanner;
+
+import java_hexagonal_abstract.Application.Usecase.Basedatos.BasedatosUseCase;
 import java_hexagonal_abstract.Application.Usecase.Client.ClientUseCase;
 import java_hexagonal_abstract.Application.Usecase.Product.ProductUseCase;
 import java_hexagonal_abstract.Domain.Repository.ClientRespository;
 import java_hexagonal_abstract.Domain.Repository.ProductResposity;
+import java_hexagonal_abstract.Domain.Repository.basedatos;
 import java_hexagonal_abstract.infrastructure.Database.ConnectionFactory;
 import java_hexagonal_abstract.infrastructure.persistence.Client.ClientRepositoryImpl;
 import java_hexagonal_abstract.infrastructure.persistence.Product.ProductRepositoryImpl;
+import java_hexagonal_abstract.infrastructure.persistence.baseDatos.BaseDeDatosRepositoryimpl;
 
 public class Main {
     public static void main(String[] args) {
+
+
         ClientRespository repositorio = new ClientRepositoryImpl(ConnectionFactory.crearConexion());
         ClientUseCase clienteCasoUso = new ClientUseCase(repositorio);
         ProductResposity repositorioProduc = new ProductRepositoryImpl(ConnectionFactory.crearConexion());
         ProductUseCase productoCasoUso = new ProductUseCase(repositorioProduc);
+        basedatos basedatos = new BaseDeDatosRepositoryimpl(ConnectionFactory.crearConexion());
+        BasedatosUseCase basedatosUseCase = new BasedatosUseCase(basedatos);
         try (Scanner sc = new Scanner(System.in)){
             String menu;
             do {
@@ -22,7 +31,7 @@ public class Main {
                 String menuProductos; 
                 System.out.println("1.) Entrar a menu de clientes");
                 System.out.println("2.) Entrar a menu de Producto");
-                System.out.println("3.) Salir");
+                System.out.println("3.) Crear base de datos");
                 menu = sc.nextLine();
                 System.out.println("");
                 switch (menu) {
@@ -170,6 +179,9 @@ public class Main {
                         } while (!menuProductos.equals("6"));
                         break;
                     case "3":
+                        basedatosUseCase.creardatos();
+                    break;
+                    case "4":
                         System.out.println("Saliendo.......");
                         System.out.println();
                         break;
@@ -178,7 +190,7 @@ public class Main {
                         System.out.println();
                     break;
                 }   
-            }while(!menu.equals("3"));
+            }while(!menu.equals("4"));
         }
     }
 }

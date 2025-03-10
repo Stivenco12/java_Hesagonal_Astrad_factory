@@ -21,7 +21,7 @@ public class ProductRepositoryImpl implements ProductResposity {
     }
     @Override
     public void guardar(Product producto) {
-             String sql = "INSERT INTO product (id, nombreproducto, stock) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO product (id, nombreproducto, stock) VALUES (?, ?, ?)";
         try (Connection conexion = connection.getConexion();
              PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setInt(1, producto.getId());
@@ -106,5 +106,5 @@ public class ProductRepositoryImpl implements ProductResposity {
             e.printStackTrace();
         }
     }
-    
+
 }
