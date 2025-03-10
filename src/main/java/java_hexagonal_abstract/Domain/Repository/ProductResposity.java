@@ -8,7 +8,7 @@ import java_hexagonal_abstract.Domain.Entity.Product;
 public interface ProductResposity {
     void guardar(Product producto);
     Client buscarPorId(int id);
-    List<Client> listarTodos();
+    List<Product> listarTodos();
     void actualizar(Product producto);
     void eliminar(int id);
 }
