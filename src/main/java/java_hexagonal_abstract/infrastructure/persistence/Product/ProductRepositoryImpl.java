@@ -97,14 +97,30 @@ public class ProductRepositoryImpl implements ProductResposity {
 
     @Override
     public void eliminar(int id) {
-        String sql = "DELETE FROM product WHERE id = ?";
+
+        String sql = "SELECT * FROM product WHERE id = ?";
         try (Connection conexion = connection.getConexion();
-             PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            stmt.executeUpdate();
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String sql1 = "DELETE FROM product WHERE id = ?";
+                try (Connection conexion1 = connection.getConexion();
+                     PreparedStatement stmt1 = conexion1.prepareStatement(sql1)) {
+                    stmt1.setInt(1, id);
+                    stmt1.executeUpdate();
+                    System.out.println("producto Eliminado exitosamente");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                System.out.println("error ese id no existe");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("error");
         }
+
     }
 
 }

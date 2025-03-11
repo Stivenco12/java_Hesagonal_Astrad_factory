@@ -28,6 +28,8 @@ public class ClientRepositoryImpl implements ClientRespository {
             stmt.setString(2, cliente.getName());
             stmt.setString(3, cliente.getEmail());
             stmt.executeUpdate();
+            System.out.println("Los datos han sido editados correctamente");
+            System.out.println("");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,15 +98,27 @@ public class ClientRepositoryImpl implements ClientRespository {
 
     @Override
     public void eliminar(int id) {
-        String sql = "DELETE FROM clientes WHERE id = ?";
+        String sql0 = "SELECT * FROM clientes WHERE id = ?";
         try (Connection conexion = connection.getConexion();
-             PreparedStatement stmt = conexion.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+                PreparedStatement stmt = conexion.prepareStatement(sql0)) {
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    String sql = "DELETE FROM clientes WHERE id = ?";
+                    try (Connection conexion1 = connection.getConexion();
+                        PreparedStatement stmt1 = conexion1.prepareStatement(sql)) {
+                        stmt1.setInt(1, id);
+                        stmt1.executeUpdate();
+                        System.out.println("producto elimnado exitosamente");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    System.out.println("error ese id no existe");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("error");
         }
     }
-
-
 }
