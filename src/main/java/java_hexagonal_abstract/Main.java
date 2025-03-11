@@ -27,7 +27,7 @@ public class Main {
                 String menuProductos; 
                 System.out.println("1.) Entrar a menu de clientes");
                 System.out.println("2.) Entrar a menu de Producto");
-                System.out.println("3.) Crear base de datos ");
+                System.out.println("3.) Crear base de datos (obligatorio si no hay base creada)");
                 System.out.println("4.) salir....");
                 System.out.print("Elige una opcion = ");
                 menu = sc.nextLine();
@@ -167,9 +167,13 @@ public class Main {
                                         System.out.print("Ingrese el stock: ");
                                         int stock = sc.nextInt();
                                         sc.nextLine();
-                                        productoCasoUso.registrarProducto(id, nombre, stock);
-                                        System.out.println("Producto registrado exitosamente.");     
-                                        System.out.println("");
+                                        if (stock >= 0) {
+                                            productoCasoUso.registrarProducto(id, nombre, stock);
+                                            System.out.println("Producto registrado exitosamente.");     
+                                            System.out.println("");
+                                        }else{
+                                            System.out.println("No esta permitido STOCK negativo");
+                                        }
                                     } catch (Exception e) {
                                         System.out.println("error vuelve a intentarlo");
                                         System.out.println("");
@@ -199,14 +203,19 @@ public class Main {
                                         System.out.print("Ingrese el nuevo Stock = ");
                                         int NuevoStock = sc.nextInt();
                                         sc.nextLine();
-                                        System.out.println("");
-                                        System.out.println("Datos anteriores = ");
-                                        productoCasoUso.obtenerProducto(idProductonuuevo);
-                                        productoCasoUso.actualizarProducto(idProductonuuevo, NuevoProducto, NuevoStock);
-                                        System.out.println("");
-                                        System.out.println("Datos actualizados = ");
-                                        productoCasoUso.obtenerProducto(idProductonuuevo);
-                                        System.out.println("");
+                                        if (NuevoStock >= 0) {
+                                            System.out.println("");
+                                            System.out.println("Datos anteriores = ");
+                                            productoCasoUso.obtenerProducto(idProductonuuevo);
+                                            productoCasoUso.actualizarProducto(idProductonuuevo, NuevoProducto, NuevoStock);
+                                            System.out.println("");
+                                            System.out.println("Datos actualizados = ");
+                                            productoCasoUso.obtenerProducto(idProductonuuevo);
+                                            System.out.println("");
+                                        }else{
+                                            System.out.println("No esta permitido STOCK negativo");
+                                        }
+                                     
 
                                     } catch (Exception e) {
                                         System.out.println("error vuelve a intentarlo");
