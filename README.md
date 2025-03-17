@@ -1,66 +1,72 @@
-# Proyecto: Java Hexagonal Astrad Factory
+# Proyecto: Arquitectura Hexagonal con Fábricas en Java
 
-## Descripción
+Este proyecto implementa la **arquitectura hexagonal** en Java, utilizando patrones de diseño como **Factory** y **Singleton** para la gestión de bases de datos, clientes y productos. 
+La arquitectura hexagonal permite desacoplar la lógica del negocio de las interfaces de usuario y la infraestructura, facilitando la escalabilidad y mantenibilidad del sistema.
 
-Este proyecto implementa una arquitectura hexagonal en Java con una fábrica de conexiones a bases de datos. Se utiliza Maven como gestor de dependencias y se siguen principios de desacoplamiento entre capas para mejorar la mantenibilidad y escalabilidad del código.
+## 🚀 Tecnologías Utilizadas
+- **Java 8+**: Lenguaje de programación.
+- **Maven**: Para la gestión de dependencias y compilación del proyecto.
+- **Arquitectura Hexagonal**: Estructura que separa la lógica de negocio de la infraestructura y las interfaces de usuario.
+- **Patrón Factory**: Para la creación de objetos sin especificar la clase exacta.
+- **Patrón Singleton**: Para garantizar una única instancia de la base de datos y otros servicios esenciales.
 
-## Estructura del Proyecto
+## 📂 Estructura del Proyecto
+```
+java_Hesagonal_Astrad_factory-main/
+│── pom.xml                                    # Configuración de Maven
+│── src/main/java/java_hexagonal_abstract/     # Código fuente principal
+│   │── Main.java                               # Punto de entrada del programa
+│   │── guardar.java                            # Clase para persistencia de datos
+│   │── Application/Usecase/                    # Casos de uso
+│   │   │── Basedatos/BasedatosUseCase.java     # Lógica para base de datos
+│   │   │── Client/ClientUseCase.java           # Lógica para clientes
+│   │   │── Product/ProductUseCase.java         # Lógica para productos
+│   │── Config/HexaSingleton.java               # Implementación del patrón Singleton
+│   │── Domain/Entity/                          # Entidades del dominio
+│   │   │── BaseDeDatos.java                    # Representación de la base de datos
+│   │   │── Client.java                         # Representación de un cliente
+│   │   │── Product.java                        # Representación de un producto
+│── target/                                    # Archivos compilados
+```
 
-El proyecto está organizado en los siguientes paquetes:
-
-- **Application.Usecase.Client**: Contiene la lógica de negocio relacionada con los clientes.
-- **Config**: Incluye configuraciones generales del proyecto, como `HexaSingleton`.
-- **Domain.Entity**: Define las entidades del dominio, como `Client`.
-- **Domain.Repository**: Define las interfaces para los repositorios, como `ClientRepository`.
-- **Infrastructure.Database**: Contiene la lógica de conexión a la base de datos, incluyendo `ConnectionFactory` y `ConnMySql`.
-- **Infrastructure.Persistence.Client**: Implementaciones concretas de los repositorios.
-
-## Instalación y Ejecución
-
-### Prerrequisitos
-
-- Tener instalado Java 11 o superior.
-- Tener Maven instalado.
-- Tener configurada una base de datos MySQL si se desea persistencia de datos.
-
-### Pasos
-
-1. Clonar el repositorio o descargar el código fuente.
-2. Navegar al directorio del proyecto.
-3. Ejecutar el siguiente comando para compilar el proyecto:
-   ```sh
-   mvn clean install
+## 📌 Instalación y Uso
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/tuusuario/tu-repo.git
    ```
-4. Para ejecutar la aplicación:
-   ```sh
+2. Accede al directorio del proyecto:
+   ```bash
+   cd java_Hesagonal_Astrad_factory-main
+   ```
+3. Compila y ejecuta con Maven:
+   ```bash
+   mvn clean install
    mvn exec:java -Dexec.mainClass="java_hexagonal_abstract.Main"
    ```
 
-## Principales Clases y Funcionalidades
+## ✨ Explicación del Código
+### **Patrón Singleton (`HexaSingleton.java`)**
+El **patrón Singleton** se implementa en `HexaSingleton.java` para garantizar que solo exista una única instancia de la base de datos en toda la aplicación. Esto evita la duplicación de conexiones y mejora la eficiencia.
 
-### `Main.java`
+### **Patrón Factory y Casos de Uso**
+- **`BasedatosUseCase.java`**: Contiene la lógica de negocio para manejar la base de datos.
+- **`ClientUseCase.java`**: Maneja las operaciones de los clientes.
+- **`ProductUseCase.java`**: Administra la lógica relacionada con los productos.
+- **`guardar.java`**: Implementa la persistencia de datos, asegurando que la información se almacene correctamente.
+- **`Domain/Entity/`**: Contiene las entidades principales del dominio como `BaseDeDatos.java`, `Client.java` y `Product.java`, que representan la estructura de los datos en el sistema.
 
-Punto de entrada de la aplicación, donde se inicializan los componentes principales.
+### **Beneficios de la Arquitectura Hexagonal**
+1. **Desacoplamiento**: Permite que los componentes del negocio sean independientes de la infraestructura.
+2. **Mantenibilidad**: Se pueden cambiar las tecnologías de persistencia o interfaces sin afectar la lógica central.
+3. **Escalabilidad**: Facilita la adición de nuevos módulos sin afectar los existentes.
+4. **Reutilización**: La lógica del negocio puede ser utilizada por múltiples interfaces, como una API REST o una aplicación de escritorio.
 
-### `Client.java`
+## 📌 Posibles Mejoras
+- Implementar pruebas unitarias para garantizar el correcto funcionamiento de cada módulo.
+- Añadir una capa de persistencia más avanzada con un ORM como Hibernate.
+- Integrar una API REST para interactuar con la aplicación desde otros sistemas.
+- Implementar un sistema de logs para mejorar la depuración y mantenimiento del código.
 
-Entidad que representa a un cliente en el sistema.
-
-### `ClientUseCase.java`
-
-Contiene la lógica de negocio para la gestión de clientes.
-
-### `ClientRepository.java`
-
-Interfaz que define los métodos para el acceso a datos de clientes.
-
-### `ClientRepositoryImpl.java`
-
-Implementación de `ClientRepository`, maneja la persistencia de los clientes.
-
-### `ConnectionFactory.java`
-
-Fábrica de conexiones a bases de datos, permite cambiar de proveedor de base de datos sin afectar la lógica de negocio.
-
-## Desarrollador : Stivenco12
+## 👨‍💻 Desarrollador
+- **Stivenco12**
 
